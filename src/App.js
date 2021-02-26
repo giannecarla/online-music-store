@@ -37,19 +37,24 @@ function SignIn() {
   }
 
   return (
-    <div className="App-header">
-    <div className="title">
-      <HeaderTitle />
-      <Button 
-        size="large"
-        onClick={signInWithGoogle}
-        variant="contained"
-        color="secondary">
-          <i class="fab fa-google"></i> 
-          Sign in with Google
-      </Button>
-      {/*<a href='https://www.freepik.com/photos/background'>Background photo created by rawpixel.com - www.freepik.com</a>*/}
-    </div>
+    <div className="Login">
+      <div className="title">
+        <HeaderTitle />
+        <Button 
+          size="large"
+          onClick={signInWithGoogle}
+          variant="contained"
+          color="secondary">
+            <i class="fab fa-google"></i> 
+            Sign in with Google
+        </Button>
+      </div>
+      <a 
+        className="resource-credit" 
+        href='https://www.freepik.com/photos/background'
+      >
+          Background photo created by rawpixel.com - www.freepik.com
+      </a>
     </div>
   )
 }

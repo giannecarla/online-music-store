@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  font-family: Satisfy;
+  font-family: 'Montserrat', sans-serif;;
   font-weight: 100;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -31,6 +31,18 @@ body {
 span > i {
   padding: 5px;
   font-size: 1.5em;
+}
+
+.resource-credit {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  color: white;
+  text-align: center;
+  text-align: left;
+  font-size: 0.35em;
+  opacity: .5;
 }
 
 code {
