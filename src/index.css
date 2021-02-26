@@ -6,43 +6,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   position: relative;
   background-color: #282c34;
-}
-
-.app-title{
-  font-family: Satisfy;
-  font-weight: 600;
-  letter-spacing: 3px;
-  font-size: 3em;
-  padding-bottom: 1%;
-  margin-bottom: 2%;
-}
-
-.app-title img {
-  height: 55px;
-  padding: 0px 3%;
-}
-
-.app-header > span {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-span > i {
-  padding: 5px;
-  font-size: 1.5em;
-}
-
-.resource-credit {
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  color: white;
-  text-align: center;
-  text-align: left;
-  font-size: 0.35em;
-  opacity: .5;
+  color: white
 }
 
 code {

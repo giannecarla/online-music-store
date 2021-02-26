@@ -7,7 +7,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { Fragment } from 'react';
 import { Button, Icon } from '@material-ui/core';
-
+import MusicStore from './MusicStore';
 firebase.initializeApp({
     apiKey: "AIzaSyC_jNUWzSU_60t6dSxR2BhWpqIKQrS_Ntc",
     authDomain: "online-music-store-c8e1a.firebaseapp.com",
@@ -25,7 +25,7 @@ function App() {
   console.log("MY USER: ", user);
   return (
     <div className="App">
-      { user ? <SignOut /> : <SignIn/>}
+      { user ? <MusicStore user={user}/> : <SignIn/>}
     </div>
   );
 }
@@ -39,13 +39,17 @@ function SignIn() {
   return (
     <div className="Login">
       <div className="title">
-        <HeaderTitle />
+        <div className="app-title head">
+          <span>
+            Huni
+          </span>
+        </div>
         <Button 
           size="large"
           onClick={signInWithGoogle}
           variant="contained"
           color="secondary">
-            <i class="fab fa-google"></i> 
+            <i className="fab fa-google"></i> 
             Sign in with Google
         </Button>
       </div>
@@ -59,31 +63,34 @@ function SignIn() {
   )
 }
 
-function HeaderTitle() {
-  return (
-    <div className="app-title head">
-      <span>
-        {/* <img src={"./applogo128.png"}/> */}
-        Huni
-      </span>
-    </div>
-  )
-}
-
 function SignOut() {
   return auth.currentUser && (
-      <Button 
-        size="large"
+      <Button
         onClick={() => auth.signOut()}
-        variant="contained"
-        color="primary">
-          <i className="fas fa-sign-out-alt"></i>
-          Sign Out
+      >
+        <i className="fas fa-sign-out-alt"></i>
+        Sign Out
       </Button>
   ) 
 }
 
-function OnlineMusicStore(){
-  return <div></div>
+function HeaderMenu(){
+  return (
+    <div className="header-menu">
+      <Button>Huni</Button>
+      <Button>Songs</Button>
+      <Button>Albums</Button>
+      <Button><i className="fas fa-shopping-cart"/>Cart</Button>
+      <SignOut/>
+    </div>
+  )
+}
+
+function Homepage(){
+  return (
+    <Fragment>
+      <HeaderMenu />
+    </Fragment>
+  )
 }
 export default App;
