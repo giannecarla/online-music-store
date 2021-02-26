@@ -14,14 +14,25 @@
 }
 
 .App-header {
-  background-color: #282c34;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: white;
+  color: #3A8A7F;
+  width: 20%;
+  padding-left: 74%;
+}
+
+.title {
+  background-color: #ecf0f1;
+  border-radius: 20px;
+  margin: 5% 0;
+  padding-bottom: 2%;
+  display: flex;
+  flex-direction: column;
+  padding: 15%;
 }
 
 .App-link {
@@ -35,4 +46,10 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+@font-face {
+  font-family: 'Satisfy';
+  src: url('./assets/fonts/Satisfy-Regular.ttf');
+  src: url('./assets/fonts/Satisfy-Regular.ttf') format('ttf'),
 }
