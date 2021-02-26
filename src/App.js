@@ -25,9 +25,7 @@ function App() {
   console.log("MY USER: ", user);
   return (
     <div className="App">
-      <header className="App-header">
-        { user ? <SignOut /> : <SignIn/>}
-      </header>
+      { user ? <SignOut /> : <SignIn/>}
     </div>
   );
 }
@@ -39,6 +37,7 @@ function SignIn() {
   }
 
   return (
+    <div className="App-header">
     <div className="title">
       <HeaderTitle />
       <Button 
@@ -50,6 +49,7 @@ function SignIn() {
           Sign in with Google
       </Button>
       {/*<a href='https://www.freepik.com/photos/background'>Background photo created by rawpixel.com - www.freepik.com</a>*/}
+    </div>
     </div>
   )
 }

@@ -23,6 +23,9 @@
   color: #3A8A7F;
   width: 20%;
   padding-left: 74%;
+  background-image: url("./assets/undraw_more_music_w70e.svg");
+  background-position: left;
+  background-repeat: no-repeat;
 }
 
 .title {
