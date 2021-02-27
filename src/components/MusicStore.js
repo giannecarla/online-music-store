@@ -1,10 +1,11 @@
-import './App.css';
+import '../App.css';
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { AppBar, Tabs, Tab, Box, Typography, Toolbar, IconButton, Badge, Menu, MenuItem } from '@material-ui/core';
 import { Home, ShoppingCart, ExitToApp, Face } from '@material-ui/icons'
 import HomePanel from './HomePanel';
-
+import AllSongs from './AllSongs';
+import AllAlbums from './AllAbums';
 function tabProps(index) {
     return {
         id: `simple-tab-${index}`,
@@ -62,10 +63,10 @@ export default function MusicStore(props){
             <HomePanel />
         </TabPanel>
         <TabPanel value={value} index={1}>
-            Songs
+            <AllSongs />
         </TabPanel>
         <TabPanel value={value} index={2}>
-            Albums
+            <AllAlbums />
         </TabPanel>
       </div>
     )

@@ -7,7 +7,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { Fragment } from 'react';
 import { Button, Icon } from '@material-ui/core';
-import MusicStore from './MusicStore';
+import MusicStore from './components/MusicStore';
 import FirebaseClient from './FirebaseClient';
 
 const auth = FirebaseClient.auth;

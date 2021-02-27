@@ -80,8 +80,8 @@ span > i {
 }
 
 .top-album, .top-song{
-  flex: 2 2 0px;
-  margin: 0% 5px;
+  flex: 1 1 19%;
+  margin: 1% 5px;
 }
 
 @keyframes App-logo-spin {

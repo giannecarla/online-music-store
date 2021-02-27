@@ -1,11 +1,10 @@
-import './App.css';
+import '../App.css';
 import React, { Fragment } from 'react';
 import { makeStyles } from "@material-ui/core/styles";
 import 'firebase/firestore';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
-import firebase from 'firebase/app';
-import FirebaseClient from './FirebaseClient';
-import albumPlaceholder from './assets/undraw_compose_music_ovo2.svg'
+import FirebaseClient from '../FirebaseClient';
+import albumPlaceholder from '../assets/undraw_compose_music_ovo2.svg'
 import { Card, CardMedia, CardContent, Typography } from "@material-ui/core";
 
 export default function HomePanel(){
@@ -44,6 +43,7 @@ function Top10Albums(){
                                 album={album} 
                                 rank={index+1} 
                                 // songCount={songCount}
+                                key={`top-album-${index}`}
                             /> )
                     }
                 )
@@ -90,6 +90,7 @@ function Top10SongsPlayed(){
                             <TopSong 
                                 song={song} 
                                 rank={index+1} 
+                                key={`top-song-${index}`}
                             /> )
                     }
                 )
@@ -103,10 +104,10 @@ function TopSong(props){
     const { song, rank } = props;
     const classes = useStyles();
     return (
-        <Card className="top-album">
+        <Card className="top-song">
             <CardMedia
                 className={classes.media}
-                title={`${song.title} album cover`}
+                title={`${song.title} song cover`}
                 image={albumPlaceholder}
             />
             <CardContent>
