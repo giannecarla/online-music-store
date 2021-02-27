@@ -74,6 +74,16 @@ span > i {
   color: #61dafb;
 }
 
+.top-album-list, .top-song-list{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.top-album, .top-song{
+  flex: 2 2 0px;
+  margin: 0% 5px;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

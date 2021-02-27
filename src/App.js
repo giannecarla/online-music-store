@@ -8,21 +8,16 @@ import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { Fragment } from 'react';
 import { Button, Icon } from '@material-ui/core';
 import MusicStore from './MusicStore';
-firebase.initializeApp({
-    apiKey: "AIzaSyC_jNUWzSU_60t6dSxR2BhWpqIKQrS_Ntc",
-    authDomain: "online-music-store-c8e1a.firebaseapp.com",
-    projectId: "online-music-store-c8e1a",
-    storageBucket: "online-music-store-c8e1a.appspot.com",
-    messagingSenderId: "830732189649",
-    appId: "1:830732189649:web:d6514517458f6ee9cc6af0",
-    measurementId: "G-NSM027JXH5"
-})
+import FirebaseClient from './FirebaseClient';
 
-const auth = firebase.auth();
-const firestore = firebase.firestore();
+const auth = FirebaseClient.auth;
+const firestore = FirebaseClient.store;
 function App() {
   const [user] = useAuthState(auth);
   console.log("MY USER: ", user);
+
+  const { albumsRef } = firestore.collection('albums');
+    console.log("MY ALBUMS REF INIT: ", albumsRef);
   return (
     <div className="App">
       { user ? <MusicStore user={user}/> : <SignIn/>}
@@ -74,23 +69,4 @@ function SignOut() {
   ) 
 }
 
-function HeaderMenu(){
-  return (
-    <div className="header-menu">
-      <Button>Huni</Button>
-      <Button>Songs</Button>
-      <Button>Albums</Button>
-      <Button><i className="fas fa-shopping-cart"/>Cart</Button>
-      <SignOut/>
-    </div>
-  )
-}
-
-function Homepage(){
-  return (
-    <Fragment>
-      <HeaderMenu />
-    </Fragment>
-  )
-}
 export default App;
