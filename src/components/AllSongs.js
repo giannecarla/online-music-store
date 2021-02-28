@@ -7,14 +7,17 @@ import FirebaseClient from '../FirebaseClient';
 import albumPlaceholder from '../assets/undraw_compose_music_ovo2.svg'
 import { Card, CardMedia, CardContent, Typography } from "@material-ui/core";
 
-export default function AllSongs(){
+export default function AllSongs(props){
+    const { filter } = props;
     const songsRef = FirebaseClient.store.collection('songs');
-    const query = songsRef.orderBy('streamCount');
+    const query = filter 
+        ? filter
+        : songsRef.orderBy('streamCount');
     const [songs] = useCollectionData(query, {idField: 'id'})
 
     return (
         <div>
-            All Songs
+            {filter ? null : 'All Songs'}
             <div className="top-song-list">
             {
                 songs && songs.map(
