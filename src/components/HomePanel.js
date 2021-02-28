@@ -5,8 +5,8 @@ import 'firebase/firestore';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import FirebaseClient from '../FirebaseClient';
 import albumPlaceholder from '../assets/undraw_compose_music_ovo2.svg'
-import { Card, CardMedia, CardContent, Typography } from "@material-ui/core";
-
+import { Card, CardMedia, CardContent, Typography, Modal } from "@material-ui/core";
+import Album from './Album';
 export default function HomePanel(){
     return (
         <Fragment>
@@ -22,7 +22,12 @@ const useStyles = makeStyles({
     },
     media: {
       height: 140
-    }
+    },
+    modal: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      },
   });
 
 function Top10Albums(){
@@ -56,8 +61,20 @@ function Top10Albums(){
 function TopAlbum(props){
     const { rank, album, songCount } = props;
     const classes = useStyles();
+    const [open, setOpen] = React.useState(false);
+    const handleOpenAlbum = () => {
+        setOpen(true);
+      };
+    
+      const handleCloseAlbum = () => {
+        setOpen(false);
+      };
+    
     return (
-        <Card className="top-album">
+        <Fragment>
+        <Card 
+            className="top-album"
+            onClick={handleOpenAlbum}>
             <CardMedia
                 className={classes.media}
                 title={`${album.title} album cover`}
@@ -72,6 +89,17 @@ function TopAlbum(props){
                 </Typography>
             </CardContent>
         </Card>
+        <Modal
+            disableScrollLock={true}
+            open={open}
+            onClose={handleCloseAlbum}
+            aria-labelledby="View Album"
+            aria-describedby="Album Details"
+            className={classes.modal}
+        >
+            <Album album={album}/>
+        </Modal>
+        </Fragment>
     )
 }
 

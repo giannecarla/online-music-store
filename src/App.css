@@ -1,3 +1,9 @@
+:root {
+  --title-blue: #3A8A7F;
+  --black: #282c34;
+  --dirty-white: #ecf0f1;
+  --white: #fff;
+}
 .App {
   text-align: center;
 }
@@ -20,7 +26,7 @@
   align-items: center;
   justify-content: center;
   font-size: calc(10px + 2vmin);
-  color: #3A8A7F;
+  color: var(--title-blue);
   width: 20%;
   padding-left: 74%;
   background-image: url("./assets/undraw_more_music_w70e.svg");
@@ -53,7 +59,7 @@ span > i {
   left: 0;
   bottom: 0;
   width: 100%;
-  color: white;
+  color: var(--white);
   text-align: center;
   text-align: left;
   font-size: 0.35em;
@@ -61,7 +67,7 @@ span > i {
 }
 
 .title {
-  background-color: #ecf0f1;
+  background-color: var(--dirty-white);
   border-radius: 20px;
   margin: 5% 0;
   padding-bottom: 2%;
@@ -82,6 +88,20 @@ span > i {
 .top-album, .top-song{
   flex: 1 1 19%;
   margin: 1% 5px;
+}
+
+.MuiAppBar-root{
+  flex-direction: row !important;
+}
+
+.cart-item {
+  color: var(--black);
+}
+
+.cart-list {
+  background-color: var(--white);
+  max-width: 800px;
+  margin:auto;
 }
 
 @keyframes App-logo-spin {

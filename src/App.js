@@ -16,8 +16,6 @@ function App() {
   const [user] = useAuthState(auth);
   console.log("MY USER: ", user);
 
-  const { albumsRef } = firestore.collection('albums');
-    console.log("MY ALBUMS REF INIT: ", albumsRef);
   return (
     <div className="App">
       { user ? <MusicStore user={user}/> : <SignIn/>}

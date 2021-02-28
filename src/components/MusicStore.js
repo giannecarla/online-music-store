@@ -6,6 +6,10 @@ import { Home, ShoppingCart, ExitToApp, Face } from '@material-ui/icons'
 import HomePanel from './HomePanel';
 import AllSongs from './AllSongs';
 import AllAlbums from './AllAbums';
+import CartPanel from './CartPanel';
+import FirebaseClient from '../FirebaseClient';
+import { useCollectionData } from 'react-firebase-hooks/firestore';
+import PurchaseHistory from './PurchaseHistory';
 function tabProps(index) {
     return {
         id: `simple-tab-${index}`,
@@ -35,11 +39,15 @@ function TabPanel(props) {
 
 export default function MusicStore(props){
     const [value, setValue] = React.useState(0);
-    const { user } = props
+    const [showCartPanel, setShowCartPanel] = React.useState(false);
+    const [showPurchaseHistory, setShowPurchaseHistory] = React.useState(false);
+    const [isNavOnTabs, setIsNavOnTabs] = React.useState(true);
+    const { user } = props;
     const handleTabChange = (event, newValue) => {
-        setValue(newValue)
+        setValue(newValue);
+        setShowCartPanel(false);
+        setIsNavOnTabs(true);
     }
-
     return (
       <div>
         <AppBar position="static" color="transparent">
@@ -53,31 +61,47 @@ export default function MusicStore(props){
                 <Tab label="Huni" icon={<Home/>} {...tabProps(0)}/>
                 <Tab label="Songs" {...tabProps(1)}/>
                 <Tab label="Albums" {...tabProps(2)}/>
-                <Toolbar>
-                  <CartButton />
-                  <MyProfileButton user={user}/>
-                </Toolbar>
             </Tabs>
+            <Toolbar>
+              <CartButton 
+                onClick={(e) => {
+                  setIsNavOnTabs(false);
+                  setShowCartPanel(true)}}
+              />
+              <MyProfileButton user={user}/>
+            </Toolbar>
         </AppBar>
-        <TabPanel value={value} index={0}>
-            <HomePanel />
-        </TabPanel>
-        <TabPanel value={value} index={1}>
-            <AllSongs />
-        </TabPanel>
-        <TabPanel value={value} index={2}>
-            <AllAlbums />
-        </TabPanel>
+        { isNavOnTabs &&
+          <Fragment>
+            <TabPanel value={value} index={0}>
+                <HomePanel />
+            </TabPanel>
+            <TabPanel value={value} index={1}>
+                <AllSongs />
+            </TabPanel>
+            <TabPanel value={value} index={2}>
+                <AllAlbums />
+            </TabPanel>
+          </Fragment>
+        }
+        {showCartPanel && <CartPanel />}
+        {showPurchaseHistory && <PurchaseHistory />}
       </div>
     )
 }
 
-function CartButton(){
+function CartButton(props){
+  const cartRef = FirebaseClient.store.collection('carts');
+  const { uid } = FirebaseClient.auth.currentUser;
+  const query = cartRef.where('userId', '==', uid );
+  const [ cartItems ] = useCollectionData(query, {idField: "id"});
+  const cartItemsCtr = cartItems && cartItems.length;
   return (
     <IconButton
       aria-label="show cart"
+      onClick={props.onClick}
     >
-      <Badge badgeContent={3} color="secondary">
+      <Badge badgeContent={cartItemsCtr} color="secondary">
         <ShoppingCart />
       </Badge>
     </IconButton>

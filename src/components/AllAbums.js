@@ -58,14 +58,15 @@ function AlbumPreview(props){
     
     return (
         <Fragment>
-        <Card className="top-album">
+        <Card 
+            className="top-album" 
+            onClick={handleOpenAlbum}>
             <CardMedia
                 className={classes.media}
                 title={`${album.title} album cover`}
                 image={albumPlaceholder}
             />
-            <CardContent
-                onClick={handleOpenAlbum}>
+            <CardContent>
                 <Typography gutterBottom variant="h5" component="h2">
                     {album.title}
                 </Typography>
