@@ -18,7 +18,8 @@ const useStyles = makeStyles((theme) => ({
     root: {
       maxWidth: 900,
       minWidth: 500,
-      overflow: "scroll"
+      overflow: "scroll",
+      maxHeight: "-webkit-fill-available"
     },
     media: {
       height: 0,

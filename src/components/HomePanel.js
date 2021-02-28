@@ -32,13 +32,13 @@ const useStyles = makeStyles({
 
 function Top10Albums(){
     const albumsRef = FirebaseClient.store.collection('albums');
-    const albumQuery = albumsRef.orderBy('buyCount').limit('10');
+    const albumQuery = albumsRef.orderBy('buyCount', 'desc').limit('10');
     const [albums] = useCollectionData(albumQuery, {idField: 'id'});
     console.log("albums: ", albums);
 
     return (
         <div>
-            Top 10 Best Selling Albums
+            <h1>Top 10 Best Selling Albums</h1>
             <div className="top-album-list">
             {
                 albums && albums.map(
@@ -87,6 +87,9 @@ function TopAlbum(props){
                 <Typography gutterBottom variant="body2" component="h2">
                     {songCount} Songs | {album.year}
                 </Typography>
+                <Typography variant="h3" component="h3">
+                    {album.buyCount}
+                </Typography>
             </CardContent>
         </Card>
         <Modal
@@ -105,11 +108,11 @@ function TopAlbum(props){
 
 function Top10SongsPlayed(){
     const songsRef = FirebaseClient.store.collection('songs');
-    const songQuery = songsRef.orderBy('streamCount').limit('10');
+    const songQuery = songsRef.orderBy('streamCount', 'desc').limit('10');
     const [songs] = useCollectionData(songQuery, {idField: 'id'});
     return (
         <div>
-            Top 10 Most Played All-Time
+            <h1>Top 10 Most Played All-Time</h1>
             <div className="top-song-list">
             {
                 songs && songs.map(
@@ -144,6 +147,9 @@ function TopSong(props){
                 </Typography>
                 <Typography gutterBottom variant="body2" component="h2">
                     {song.artist}
+                </Typography>
+                <Typography variant="h3" component="h3">
+                    {song.streamCount}
                 </Typography>
             </CardContent>
         </Card>

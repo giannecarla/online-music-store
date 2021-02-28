@@ -10,12 +10,12 @@ import Album from './Album';
 
 export default function AllAlbums(){
     const albumsRef = FirebaseClient.store.collection('albums');
-    const query = albumsRef.orderBy('year');
+    const query = albumsRef.orderBy('year', 'desc');
     const [albums] = useCollectionData(query, {idField: 'id'})
 
     return (
         <div>
-            All albums
+            <h1>All albums</h1>
             <div className="top-album-list">
             {
                 albums && albums.map(
@@ -40,6 +40,7 @@ const useStyles = makeStyles({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
+        maxHeight: '-webkit-fill-available'
       },
   });
 
