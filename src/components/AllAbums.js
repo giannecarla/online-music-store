@@ -12,7 +12,6 @@ export default function AllAlbums(){
     const albumsRef = FirebaseClient.store.collection('albums');
     const query = albumsRef.orderBy('year', 'desc');
     const [albums] = useCollectionData(query, {idField: 'id'})
-
     return (
         <div>
             <h1>All albums</h1>

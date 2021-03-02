@@ -34,7 +34,6 @@ function Top10Albums(){
     const albumsRef = FirebaseClient.store.collection('albums');
     const albumQuery = albumsRef.orderBy('buyCount', 'desc').limit('10');
     const [albums] = useCollectionData(albumQuery, {idField: 'id'});
-    console.log("albums: ", albums);
 
     return (
         <div>

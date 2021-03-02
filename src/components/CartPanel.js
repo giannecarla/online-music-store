@@ -75,14 +75,15 @@ export default function CartPanel(){
                 .then((checkoutRef) => {
                     //updates the buy count for each album
                     let albumIds = cartItems.map(
-                        cartItem => { console.log("cart item", cartItem); return cartItem && cartItem.album.uid}
+                        cartItem => { return cartItem && cartItem.album.uid}
                     );
                     albumsRef.where('uid', 'in', albumIds).get()
                         .then((querySnapshot) => {
                             querySnapshot.forEach((item) => 
-                            {console.log("ITEM: ", item);
+                            {
+                                let addend = albumIds.filter(uid => uid === item.data().uid).length;
                                 albumsRef.doc(item.id).update({
-                                    buyCount: item.data().buyCount + 1
+                                    buyCount: item.data().buyCount + addend
                                 })}
                             )
                         })

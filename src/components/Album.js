@@ -61,8 +61,6 @@ export default function Album(props){
         setIsFeedbackOpen(false)
     }
 
-    console.log("Carts Ref: ", cartRef);
-
     const handleAddCartClick = async() => {
         const { uid } = FirebaseClient.auth.currentUser;
         await cartRef.add({

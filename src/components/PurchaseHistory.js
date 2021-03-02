@@ -43,7 +43,6 @@ export default function PurchaseHistory(){
     const { uid } = FirebaseClient.auth.currentUser
     const purchasesRef = FirebaseClient.store.collection('purchases').where('userId', '==', uid);
     const [purchaseHistory] = useCollectionData(purchasesRef, {idField: 'id'})
-    console.log("PURCHASE HISTORY: ", purchaseHistory);
     return (
         <div className="history-table">
             {
@@ -77,7 +76,6 @@ function AlbumsBought(props){
             {
                 albums && albums.map(
                     (album) => {
-                        console.log("ALBUM: ", album);
                         return (
                         <ListItem className={"top-album"}>
                             <ListItemAvatar>

@@ -125,7 +125,7 @@ function MyProfileButton(props){
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
-    console.log("MY USER: ", user);
+    // console.log("MY USER: ", user);
   };
 
   const handleClickHistory = () => {

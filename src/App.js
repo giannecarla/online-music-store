@@ -14,7 +14,6 @@ const auth = FirebaseClient.auth;
 const firestore = FirebaseClient.store;
 function App() {
   const [user] = useAuthState(auth);
-  console.log("MY USER: ", user);
 
   return (
     <div className="App">
