@@ -48,6 +48,7 @@ export default function MusicStore(props){
     const handleTabChange = (event, newValue) => {
         setValue(newValue);
         setShowCartPanel(false);
+        setShowPurchaseHistory(false);
         setIsNavOnTabs(true);
     }
     return (
@@ -68,9 +69,16 @@ export default function MusicStore(props){
               <CartButton 
                 onClick={(e) => {
                   setIsNavOnTabs(false);
-                  setShowCartPanel(true)}}
+                  setShowCartPanel(true);
+                  setShowPurchaseHistory(false);
+                }}
               />
-              <MyProfileButton user={user}/>
+              <MyProfileButton 
+                onClickHistory={(e) => {
+                  setIsNavOnTabs(false);
+                  setShowCartPanel(false);
+                  setShowPurchaseHistory(true);
+                }}/>
             </Toolbar>
         </AppBar>
         { isNavOnTabs &&
@@ -113,15 +121,16 @@ function CartButton(props){
 function MyProfileButton(props){
   const [anchorEl, setAnchorEl] = React.useState(null);
   const isSubMenuOpen = Boolean(anchorEl);
-  const { user } = props;
+  const { user, onClickHistory} = props;
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
     console.log("MY USER: ", user);
   };
 
-  const handleMenuClose = () => {
+  const handleClickHistory = () => {
     setAnchorEl(null);
+    onClickHistory && onClickHistory()
   };
 
   const MyProfileSubMenu = (
@@ -132,10 +141,10 @@ function MyProfileButton(props){
       keepMounted
       transformOrigin={{ vertical: 'top', horizontal: 'right' }}
       open={isSubMenuOpen}
-      onClose={handleMenuClose}
+      onClose={handleClickHistory}
     >
 
-      <MenuItem onClick={handleMenuClose}>Purchase History</MenuItem>
+      <MenuItem onClick={handleClickHistory}>Purchase History</MenuItem>
     </Menu>
   )
   return (

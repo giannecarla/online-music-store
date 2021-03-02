@@ -8,12 +8,6 @@ import albumPlaceholder from '../assets/undraw_compose_music_ovo2.svg';
 import MuiAlert from '@material-ui/lab/Alert'
 import { 
     Avatar,
-    List, 
-    ListItem, 
-    ListItemAvatar,
-    ListItemText, 
-    ListItemSecondaryAction,
-    IconButton,
     Button,
     Paper,
     Snackbar,
@@ -68,15 +62,13 @@ export default function CartPanel(){
     const cartQuery = cartsRef.where('userId', '==', uid).where('isDeleted', '==', false);
     const [cartItems] = useCollectionData( cartQuery, {idField: 'id'})
     const [isFeedbackOpen, setIsFeedbackOpen] = useState(false);
-    // const forPurchase = cartItems && cartItems.filter(item => !item.isDeleted);
-    console.log("CART ITEMS: ", cartItems);
     const handleCheckoutClick = async() => {
 
         let addPurchase = purchasesRef.add({
             refNo: `A_${moment().format('MMDDYYYYHHMM')}`,
             userId: uid,
             timestamp: moment().format("MM/DD/YYYY HH:MM"),
-            albums: cartItems
+            albums: cartItems.map((items) => items.album)
         })
 
         await addPurchase
@@ -118,15 +110,13 @@ export default function CartPanel(){
         }
         setIsFeedbackOpen(false)
     }
-    if(!cartItems || cartItems.length==0){
-        return (
-            <div className="empty-set">
-                    Cart is empty.
-            </div>
-        )
-    }
+
     return(
         <Fragment>
+        {
+            !cartItems || cartItems.length==0
+                ? <div className="empty-set">Cart is empty.</div>
+                : <Fragment>
         <TableContainer component={Paper} className={classes.cartTableRoot}>
             <Table className={classes.table} aria-label={"Cart"}>
                 <TableHead>
@@ -160,6 +150,8 @@ export default function CartPanel(){
         >
             Checkout
         </Button>
+        </Fragment>
+        }
         <Snackbar open={isFeedbackOpen} autoHideDuration={6000} onclose={handleCloseFeedback}>
             <Alert onClose={handleCloseFeedback} severity="success">
                 Purchase successful!

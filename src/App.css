@@ -115,12 +115,21 @@ span > i {
   margin-bottom: 1%;
 }
 
-.cart-table{
+.cart-table,
+.history-table{
   width: 700px !important;
+  margin: 3% auto;
 }
 
 .empty-set{
-  margin: 5%
+  padding: 3%;
+  background-image: url('./assets/undraw_empty_xct9.svg');
+  min-height: 100vh;
+  font-size: calc(10px + 2vmin);
+  color: var(--title-blue);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 500px;
 }
 
 .multicontent-table-cell {
