@@ -15,7 +15,7 @@ var firebaseConfig = {
 
 // var firebaseApp = firebase.initializeApp(firebaseConfig);
 const FirebaseClient = {
-    app: firebase.initializeApp(firebaseConfig),
+    initializeApp: firebase.initializeApp(firebaseConfig),
     store: firebase.firestore(),
     auth: firebase.auth()
 }

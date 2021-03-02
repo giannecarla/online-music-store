@@ -52,8 +52,9 @@ export default function Album(props){
         const { uid } = FirebaseClient.auth.currentUser;
         await cartRef.add({
             userId: uid,
-            albumId: album.uid,
-            createdAt: moment().format("MM/DD/YYYY HH:MM")
+            album: album,
+            createdAt: moment().format("MM/DD/YYYY HH:MM"),
+            isDeleted: false
         })
     }
 

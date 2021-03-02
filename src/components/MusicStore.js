@@ -40,9 +40,11 @@ function TabPanel(props) {
 export default function MusicStore(props){
     const [value, setValue] = React.useState(0);
     const [showCartPanel, setShowCartPanel] = React.useState(false);
+    const [ cartItemCtr, setCartItemCtr ] = React.useState(0)
     const [showPurchaseHistory, setShowPurchaseHistory] = React.useState(false);
     const [isNavOnTabs, setIsNavOnTabs] = React.useState(true);
     const { user } = props;
+
     const handleTabChange = (event, newValue) => {
         setValue(newValue);
         setShowCartPanel(false);
@@ -93,8 +95,8 @@ export default function MusicStore(props){
 function CartButton(props){
   const cartRef = FirebaseClient.store.collection('carts');
   const { uid } = FirebaseClient.auth.currentUser;
-  const query = cartRef.where('userId', '==', uid );
-  const [ cartItems ] = useCollectionData(query, {idField: "id"});
+  const cartQuery = cartRef.where('userId', '==', uid ).where('isDeleted', '==', false);
+  const [ cartItems ] = useCollectionData(cartQuery, {idField: "id"});
   const cartItemsCtr = cartItems && cartItems.length;
   return (
     <IconButton

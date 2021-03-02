@@ -102,6 +102,7 @@ span > i {
   background-color: var(--white);
   max-width: 800px;
   margin:auto;
+  color: var(--black)
 }
 
 .mini-player {
