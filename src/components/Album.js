@@ -6,11 +6,14 @@ import { useCollectionData } from 'react-firebase-hooks/firestore';
 import FirebaseClient from '../FirebaseClient';
 import albumPlaceholder from '../assets/undraw_compose_music_ovo2.svg';
 import moment from 'moment';
+import MuiAlert from '@material-ui/lab/Alert'
 import { 
     Collapse, 
     Card, CardHeader, CardMedia, CardContent, CardActions,
     Typography, 
-    IconButton } from "@material-ui/core";
+    IconButton,
+    Snackbar
+ } from "@material-ui/core";
 import { ShoppingCart, ExpandMore} from '@material-ui/icons'
 import AllSongs from './AllSongs';
 
@@ -37,6 +40,10 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
+function Alert(props) {
+    return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
+
 export default function Album(props){
     const classes = useStyles();
     const { album } = props;
@@ -45,6 +52,14 @@ export default function Album(props){
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
+
+    const [isFeedbackOpen, setIsFeedbackOpen] = useState(false);
+    const handleCloseFeedback = (event, reason) => {
+        if(reason === 'clickaway'){
+            return;
+        }
+        setIsFeedbackOpen(false)
+    }
 
     console.log("Carts Ref: ", cartRef);
 
@@ -56,12 +71,16 @@ export default function Album(props){
             createdAt: moment().format("MM/DD/YYYY HH:MM"),
             isDeleted: false
         })
+        .then(() => {
+            setIsFeedbackOpen(true)
+        })
     }
 
     const subHeader = (
         <p>{`${album.artist} | ${album.year}`}</p>
     )
     return (
+        <Fragment>
         <Card className={classes.root}>
             <CardHeader title={album.title} subheader={subHeader}/>
             <CardMedia 
@@ -80,26 +99,30 @@ export default function Album(props){
                     onClick={handleAddCartClick}>
                     <ShoppingCart />
                 </IconButton>
-                {/* <IconButton 
+                <IconButton 
                     aria-label="show songs"
                     onClick={handleExpandClick}
                     aria-expanded={expanded}
                 >
                     <ExpandMore />
-                </IconButton> */}
+                </IconButton>
             </CardActions>
-            <AlbumSongs albumId={album.uid}/>
+            {/* <AlbumSongs albumId={album.uid}/> */}
             <Collapse in={expanded} timeout="auto" unmountOnExit>
                 <CardContent>
                     <AlbumSongs albumId={album.uid}/>
                 </CardContent>
             </Collapse>
         </Card>
+        <Snackbar open={isFeedbackOpen} autoHideDuration={6000} onclose={handleCloseFeedback}>
+            <Alert onClose={handleCloseFeedback} severity="success">
+                Successfully added to cart!
+            </Alert>
+        </Snackbar>
+        </Fragment>
     )
 
 }
-
-
 
 function AlbumSongs(props){
     const { albumId } = props;
