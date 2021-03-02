@@ -15,8 +15,15 @@ import {
     ListItemSecondaryAction,
     IconButton,
     Button,
+    Paper,
     Snackbar,
-    Typography
+    TableContainer,
+    Table,
+    TableHead,
+    TableRow,
+    TableCell,
+    Typography,
+    TableBody
 } from '@material-ui/core'
 import {Delete} from '@material-ui/icons';
 import moment from 'moment';
@@ -24,7 +31,20 @@ const useStyles = makeStyles((theme) => ({
     demo: {
       backgroundColor: theme.palette.background.paper,
     },
-  }));
+    table: {
+        minWidth: 700,
+      },
+    cartTableRoot: {
+        width: 700,
+        margin: '3% auto'
+    },
+    cartTableBody: {
+        fontWeight: 18
+    },
+    multiContent: {
+            margin: '0 2%'
+        }
+}));
 
 const getTotalAmountToBePaid = (cartItems) => {
     let value = 0;
@@ -98,65 +118,53 @@ export default function CartPanel(){
         }
         setIsFeedbackOpen(false)
     }
-    if(!cartItems){
+    if(!cartItems || cartItems.length==0){
         return (
-            <div>
-                <h1>{`${displayName}'s Cart`}</h1>
-                <div className={`${classes.demo} cart-list`}></div>
-                Cart is empty
+            <div className="empty-set">
+                    Cart is empty.
             </div>
         )
     }
-    return (
-        <div>
-            <h1>{`${displayName}'s Cart`}</h1>
-            <div className={`${classes.demo} cart-list`}>
-                <List dense={true}>
-                    {
-                        cartItems.map(
-                            (item, index) => 
-                                item.isDeleted
-                                    ? null
-                                    : <CartItem album={item.album} key={index}/>
-                            
-                        )
-                    }
-                    <hr/>
-                    <Typography variant="h6">
-                        {`Total Amount ${getTotalAmountToBePaid(cartItems)}`}
-                    </Typography>
-                </List>
-                <Button size="large"
-                    onClick={handleCheckoutClick}
-                >
-                    Checkout
-                </Button>
-            </div>
-            <Snackbar open={isFeedbackOpen} autoHideDuration={6000} onclose={handleCloseFeedback}>
-                <Alert onClose={handleCloseFeedback} severity="success">
-                    Purchase Successful!
-                </Alert>
-            </Snackbar>
-        </div>
-    )
-}
-
-function CartItem(props){
-    const { album } = props;
-    return (
-        <ListItem className="cart-item" alignItems="flex-start">
-            <ListItemAvatar>
-                <Avatar alt={`album cover`} src={albumPlaceholder}/>
-            </ListItemAvatar>
-            <ListItemText
-                primary={album.title}
-                secondary={`PHP ${album.price}`}
-            />
-            <ListItemSecondaryAction>
-                <IconButton edge="end" aria-label="Delete">
-                    <Delete/>
-                </IconButton>
-            </ListItemSecondaryAction>
-        </ListItem>  
+    return(
+        <Fragment>
+        <TableContainer component={Paper} className={classes.cartTableRoot}>
+            <Table className={classes.table} aria-label={"Cart"}>
+                <TableHead>
+                    <TableRow>
+                        <TableCell>#</TableCell>
+                        <TableCell>Album</TableCell>
+                        <TableCell align="center">Price</TableCell>
+                    </TableRow>
+                </TableHead>
+                <TableBody className={classes.cartTableBody}>
+                    {cartItems.map((item, index) => {
+                        return (<TableRow key={index}>
+                            <TableCell>{index++}</TableCell>
+                            <TableCell className={"multicontent-table-cell"}>
+                                <Avatar alt={`album cover`} src={albumPlaceholder}/>
+                                <p className={classes.multiContent}>{item.album.title}</p>
+                            </TableCell>
+                            <TableCell align="center" >{item.album.price}</TableCell>
+                        </TableRow>)
+                    })}
+                    <TableRow>
+                        <TableCell/>
+                        <TableCell align="right">Total</TableCell>
+                        <TableCell align="center">{getTotalAmountToBePaid(cartItems)}</TableCell>
+                    </TableRow>
+                </TableBody>
+            </Table>
+        </TableContainer>
+        <Button size="large" variant="contained" color="secondary"
+            onClick={handleCheckoutClick}
+        >
+            Checkout
+        </Button>
+        <Snackbar open={isFeedbackOpen} autoHideDuration={6000} onclose={handleCloseFeedback}>
+            <Alert onClose={handleCloseFeedback} severity="success">
+                Purchase successful!
+            </Alert>
+        </Snackbar>
+        </Fragment>
     )
 }
