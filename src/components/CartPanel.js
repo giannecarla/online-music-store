@@ -9,6 +9,7 @@ import MuiAlert from '@material-ui/lab/Alert'
 import { 
     Avatar,
     Button,
+    Checkbox,
     Paper,
     Snackbar,
     TableContainer,
@@ -51,8 +52,18 @@ const getTotalAmountToBePaid = (cartItems) => {
 
 function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
-  }
+}
 
+let selectedOnCart = []
+function onClickCheckBox(event, cartId){
+    if(event.target.checked) selectedOnCart.push(cartId);
+    else{
+        selectedOnCart.splice(
+            selectedOnCart.indexOf(cartId),
+            1
+        )
+    }
+}
 export default function CartPanel(){
     const classes = useStyles();
     const purchasesRef = FirebaseClient.store.collection('purchases');
@@ -62,6 +73,20 @@ export default function CartPanel(){
     const cartQuery = cartsRef.where('userId', '==', uid).where('isDeleted', '==', false);
     const [cartItems] = useCollectionData( cartQuery, {idField: 'id'})
     const [isFeedbackOpen, setIsFeedbackOpen] = useState(false);
+    const [alertMessage, setAlertMessage] = useState("");
+    const handleDeleteItemsOnCart = async() => {
+        let updateCart = Promise.resolve(
+            selectedOnCart.map((cartItemId) => {
+                cartsRef.doc(cartItemId).update({
+                    isDeleted: true})
+            }))
+        await updateCart
+                .then( () => {
+                    selectedOnCart = [];
+                    setAlertMessage('Successfully deleted item(s) in cart.');
+                    setIsFeedbackOpen(true);
+                })
+    }
     const handleCheckoutClick = async() => {
 
         let addPurchase = purchasesRef.add({
@@ -100,7 +125,8 @@ export default function CartPanel(){
                         })
                 })
                 .then(() => {
-                    setIsFeedbackOpen(true)
+                    setAlertMessage('Purchase sucessful!')
+                    setIsFeedbackOpen(true);
                 })
 
     }
@@ -122,15 +148,22 @@ export default function CartPanel(){
             <Table className={classes.table} aria-label={"Cart"}>
                 <TableHead>
                     <TableRow>
-                        <TableCell>#</TableCell>
+                        <TableCell/>
                         <TableCell>Album</TableCell>
                         <TableCell align="center">Price</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody className={classes.cartTableBody}>
                     {cartItems.map((item, index) => {
+                        // const isItemSelected = isSelected(row.name);
+                        const labelId = `checkbox-${index}`;
                         return (<TableRow key={index}>
-                            <TableCell>{index++}</TableCell>
+                            <TableCell padding="checkbox">
+                                <Checkbox
+                                onChange={(e) => onClickCheckBox(e, item.id)}
+                                inputProps={{ 'aria-labelledby': labelId }}
+                                />
+                            </TableCell>
                             <TableCell className={"multicontent-table-cell"}>
                                 <Avatar alt={`album cover`} src={item.album.image ? item.album.image : albumPlaceholder}/>
                                 <p className={classes.multiContent}>{item.album.title}</p>
@@ -146,16 +179,24 @@ export default function CartPanel(){
                 </TableBody>
             </Table>
         </TableContainer>
-        <Button size="large" variant="contained" color="secondary"
-            onClick={handleCheckoutClick}
-        >
-            Checkout
-        </Button>
+        <div className={"cart-footer"}>
+            <Button size="large" variant="contained" color="default"
+                onClick={handleDeleteItemsOnCart}
+            >
+                <Delete />
+            </Button>
+            <Button size="large" variant="contained" color="secondary"
+                onClick={handleCheckoutClick}
+            >
+                Checkout
+            </Button>
+        </div>
+        
         </Fragment>
         }
         <Snackbar open={isFeedbackOpen} autoHideDuration={6000} onclose={handleCloseFeedback}>
             <Alert onClose={handleCloseFeedback} severity="success">
-                Purchase successful!
+                {alertMessage}
             </Alert>
         </Snackbar>
         </Fragment>

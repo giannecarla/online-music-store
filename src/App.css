@@ -137,6 +137,9 @@ span > i {
   align-items: center;
 }
 
+.cart-footer > button {
+  margin: 0% 1%
+}
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
