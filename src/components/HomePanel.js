@@ -138,7 +138,7 @@ function TopSong(props){
             <CardMedia
                 className={classes.media}
                 title={`${song.title} song cover`}
-                image={albumPlaceholder}
+                image={song.image ? song.image : albumPlaceholder}
             />
             <CardContent>
                 <Typography gutterBottom variant="h5" component="h2">

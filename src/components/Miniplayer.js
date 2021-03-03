@@ -76,7 +76,7 @@ export default function MediaControlCard(props) {
       </div>
       <CardMedia
         className={classes.cover}
-        image={albumPlaceholder}
+        image={song.image ? song.image : albumPlaceholder}
         title="Live from space album cover"
       />
     </Card>
