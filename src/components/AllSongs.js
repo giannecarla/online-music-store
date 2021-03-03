@@ -51,10 +51,22 @@ function SongPreview(props){
     const { song, onClick } = props;
     const classes = useStyles();
     const songsRef = FirebaseClient.store.collection('songs');
+    const albumsRef = FirebaseClient.store.collection('albums');
+    
     const handlePlaySong = async() => {
         onClick && onClick(song);
         await songsRef.doc(song.id).update({
             streamCount: song.streamCount + 1
+        }).then(() => {
+            albumsRef.where('uid', '==', song.album)
+                .get()
+                .then((querySnapshot) => {
+                    querySnapshot.forEach((album) => {
+                        songsRef.doc(song.id).update({
+                            image: album.data().image
+                        })
+                    })
+                })
         })
     }
     return (
