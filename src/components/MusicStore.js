@@ -121,7 +121,11 @@ function CartButton(props){
 function MyProfileButton(props){
   const [anchorEl, setAnchorEl] = React.useState(null);
   const isSubMenuOpen = Boolean(anchorEl);
-  const { user, onClickHistory} = props;
+  const { onClickHistory } = props;
+
+  const closeProfileMenu = () => {
+    setAnchorEl(null)
+ }
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
@@ -129,9 +133,14 @@ function MyProfileButton(props){
   };
 
   const handleClickHistory = () => {
-    setAnchorEl(null);
+    closeProfileMenu();
     onClickHistory && onClickHistory()
   };
+
+  const signOut = () => {
+    closeProfileMenu();
+    FirebaseClient.auth.signOut()
+  }
 
   const MyProfileSubMenu = (
     <Menu
@@ -141,10 +150,14 @@ function MyProfileButton(props){
       keepMounted
       transformOrigin={{ vertical: 'top', horizontal: 'right' }}
       open={isSubMenuOpen}
-      onClose={handleClickHistory}
+      onClose={closeProfileMenu}
     >
 
-      <MenuItem onClick={handleClickHistory}>Purchase History</MenuItem>
+      <MenuItem onClick={() => handleClickHistory()}>Purchase History</MenuItem>
+      <MenuItem onClick={() => signOut}>
+        <i className="fas fa-sign-out-alt"/>
+          Sign Out
+      </MenuItem>
     </Menu>
   )
   return (

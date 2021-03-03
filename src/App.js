@@ -55,15 +55,4 @@ function SignIn() {
   )
 }
 
-function SignOut() {
-  return auth.currentUser && (
-      <Button
-        onClick={() => auth.signOut()}
-      >
-        <i className="fas fa-sign-out-alt"></i>
-        Sign Out
-      </Button>
-  ) 
-}
-
 export default App;

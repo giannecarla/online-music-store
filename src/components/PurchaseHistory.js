@@ -47,7 +47,7 @@ export default function PurchaseHistory(){
         <div className="history-table">
             {
                 purchaseHistory && purchaseHistory.map(
-                    (purchase) => {
+                    (purchase, index) => {
                         return (
                             <Card className={"top-album"}>
                                 <CardContent>
@@ -57,7 +57,7 @@ export default function PurchaseHistory(){
                                     <Typography align='left' gutterBottom variant="body2" component="h2">
                                         {purchase.timestamp}
                                     </Typography>
-                                    <AlbumsBought albums={purchase.albums}/>
+                                    <AlbumsBought albums={purchase.albums} key={index}/>
                                 </CardContent>
                             </Card>
                         )
