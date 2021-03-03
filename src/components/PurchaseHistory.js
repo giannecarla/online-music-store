@@ -79,7 +79,7 @@ function AlbumsBought(props){
                         return (
                         <ListItem className={"top-album"}>
                             <ListItemAvatar>
-                                <Avatar alt={`album cover`} src={albumPlaceholder}/>
+                                <Avatar alt={`album cover`} src={album.image ? album.image : albumPlaceholder} />
                             </ListItemAvatar>
                             <ListItemText primary={`${album.title} | ${album.price}`} secondary={album.artist} />
                         </ListItem>)

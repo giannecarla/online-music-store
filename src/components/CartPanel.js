@@ -132,7 +132,7 @@ export default function CartPanel(){
                         return (<TableRow key={index}>
                             <TableCell>{index++}</TableCell>
                             <TableCell className={"multicontent-table-cell"}>
-                                <Avatar alt={`album cover`} src={albumPlaceholder}/>
+                                <Avatar alt={`album cover`} src={item.album.image ? item.album.image : albumPlaceholder}/>
                                 <p className={classes.multiContent}>{item.album.title}</p>
                             </TableCell>
                             <TableCell align="center" >{item.album.price}</TableCell>

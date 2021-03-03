@@ -64,7 +64,7 @@ function AlbumPreview(props){
             <CardMedia
                 className={classes.media}
                 title={`${album.title} album cover`}
-                image={albumPlaceholder}
+                image={album.image ? album.image : albumPlaceholder}
             />
             <CardContent>
                 <Typography gutterBottom variant="h5" component="h2">

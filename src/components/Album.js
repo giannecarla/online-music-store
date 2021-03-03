@@ -83,7 +83,7 @@ export default function Album(props){
             <CardHeader title={album.title} subheader={subHeader}/>
             <CardMedia 
                 className={classes.media} 
-                image={albumPlaceholder} 
+                image={album.image ? album.image : albumPlaceholder} 
                 title={`${album.title} Album Cover`}
             />
             <CardContent>
