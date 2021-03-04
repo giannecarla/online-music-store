@@ -54,6 +54,20 @@ span > i {
   font-size: 1.5em;
 }
 
+h1 {
+  margin: 1em;
+  font-family: 'Montserrat';
+  text-transform: none;
+}
+
+#simple-tab-0{
+  font-family: Satisfy;
+  text-transform: none;
+  font-size: 35px;
+  color: var(--title-blue);
+  letter-spacing: 0.05em;
+}
+
 .resource-credit {
   position: fixed;
   left: 0;

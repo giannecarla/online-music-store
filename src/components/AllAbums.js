@@ -14,7 +14,7 @@ export default function AllAlbums(){
     const [albums] = useCollectionData(query, {idField: 'id'})
     return (
         <div>
-            <h1>All albums</h1>
+            <h1>All Albums</h1>
             <div className="top-album-list">
             {
                 albums && albums.map(

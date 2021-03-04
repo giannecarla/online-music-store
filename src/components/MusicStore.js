@@ -61,7 +61,7 @@ export default function MusicStore(props){
                 textColor="inherit"
                 aria-label="application menu"
             >
-                <Tab label="Huni" icon={<Home/>} {...tabProps(0)}/>
+                <Tab label="Huni" {...tabProps(0)} className={"menu-brand"}/>
                 <Tab label="Songs" {...tabProps(1)}/>
                 <Tab label="Albums" {...tabProps(2)}/>
             </Tabs>

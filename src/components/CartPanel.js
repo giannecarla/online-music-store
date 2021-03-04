@@ -142,7 +142,9 @@ export default function CartPanel(){
         <Fragment>
         {
             !cartItems || cartItems.length==0
-                ? <div className="empty-set">Cart is empty.</div>
+                ? <div className="empty-set">
+                    Cart is empty.
+                  </div>
                 : <Fragment>
         <TableContainer component={Paper} className={classes.cartTableRoot}>
             <Table className={classes.table} aria-label={"Cart"}>
