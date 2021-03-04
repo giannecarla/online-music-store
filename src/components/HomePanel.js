@@ -1,5 +1,5 @@
 import '../App.css';
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { makeStyles } from "@material-ui/core/styles";
 import 'firebase/firestore';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
@@ -7,6 +7,8 @@ import FirebaseClient from '../FirebaseClient';
 import albumPlaceholder from '../assets/undraw_compose_music_ovo2.svg'
 import { Card, CardMedia, CardContent, Typography, Modal } from "@material-ui/core";
 import Album from './Album';
+import Miniplayer from './Miniplayer';
+
 export default function HomePanel(){
     return (
         <Fragment>
@@ -45,8 +47,7 @@ function Top10Albums(){
                         return ( 
                             <TopAlbum 
                                 album={album} 
-                                rank={index+1} 
-                                // songCount={songCount}
+                                rank={index+1}
                                 key={`top-album-${index}`}
                             /> )
                     }
@@ -58,9 +59,10 @@ function Top10Albums(){
 }
 
 function TopAlbum(props){
-    const { rank, album, songCount } = props;
+    const { rank, album } = props;
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
+   
     const handleOpenAlbum = () => {
         setOpen(true);
       };
@@ -72,7 +74,7 @@ function TopAlbum(props){
     return (
         <Fragment>
         <Card 
-            className="top-album"
+            className="top-chart album"
             onClick={handleOpenAlbum}>
             <CardMedia
                 className={classes.media}
@@ -84,10 +86,10 @@ function TopAlbum(props){
                     #{rank} {album.title}
                 </Typography>
                 <Typography gutterBottom variant="body2" component="h2">
-                    {songCount} Songs | {album.year}
+                    {album.songCount} Songs | {album.year}
                 </Typography>
-                <Typography variant="h3" component="h3">
-                    {album.buyCount}
+                <Typography variant="body2" component="h2">
+                    {album.buyCount} Sold copies
                 </Typography>
             </CardContent>
         </Card>
@@ -133,8 +135,19 @@ function Top10SongsPlayed(){
 function TopSong(props){
     const { song, rank } = props;
     const classes = useStyles();
+    const [miniplayerSong, setMiniplayerSong] = React.useState('')
+    const songsRef = FirebaseClient.store.collection('songs');
+    const handlePlaySong = async() => {
+        setMiniplayerSong(song);
+        await songsRef.doc(song.id).update({
+            streamCount: song.streamCount + 1
+        })
+    }
     return (
-        <Card className="top-song">
+        <Fragment>
+        <Card 
+            className="top-chart song"
+            onClick={() => handlePlaySong()}>
             <CardMedia
                 className={classes.media}
                 title={`${song.title} song cover`}
@@ -147,10 +160,12 @@ function TopSong(props){
                 <Typography gutterBottom variant="body2" component="h2">
                     {song.artist}
                 </Typography>
-                <Typography variant="h3" component="h3">
-                    {song.streamCount}
+                <Typography variant="body2" component="h2">
+                    {song.streamCount} streams
                 </Typography>
             </CardContent>
         </Card>
+        <Miniplayer song={miniplayerSong}/>
+        </Fragment>
     )
 }
