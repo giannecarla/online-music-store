@@ -19,7 +19,8 @@ const useStyles = makeStyles((theme) => ({
       maxWidth: 900,
       minWidth: 500,
       overflow: "scroll",
-      maxHeight: "-webkit-fill-available"
+      maxHeight: "-webkit-fill-available",
+      margin: '1%'
     },
     media: {
       height: 0,
@@ -43,6 +44,13 @@ export default function PurchaseHistory(){
     const { uid } = FirebaseClient.auth.currentUser
     const purchasesRef = FirebaseClient.store.collection('purchases').where('userId', '==', uid);
     const [purchaseHistory] = useCollectionData(purchasesRef, {idField: 'id'})
+    if(!purchaseHistory || purchaseHistory.length==0){
+        return (
+            <div className="empty-set">
+                Purchase history is empty.
+            </div>
+        )
+    }
     return (
         <div className="history-table">
             {

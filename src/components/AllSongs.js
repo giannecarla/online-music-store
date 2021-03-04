@@ -43,7 +43,8 @@ const useStyles = makeStyles({
       maxWidth: 345
     },
     media: {
-      height: 140
+      height: 140,
+      'background-size': 'contain'
     }
   });
 
@@ -59,7 +60,7 @@ function SongPreview(props){
     }
     return (
         <Card 
-            className="top-song"
+            className="regular-chart song"
             onClick={() => handlePlaySong()}>
             <CardMedia
                 className={classes.media}

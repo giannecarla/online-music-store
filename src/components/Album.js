@@ -126,7 +126,6 @@ function AlbumSongs(props){
     const { albumId } = props;
     const songsRef = FirebaseClient.store.collection('songs');
     const query = songsRef.where('album', '==', albumId);
-    const [songs] = useCollectionData(query, {idField: 'id'})
 
     return (
         <AllSongs filter={query} />

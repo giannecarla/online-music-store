@@ -99,9 +99,18 @@ h1 {
   flex-wrap: wrap;
 }
 
-.top-album, .top-song{
-  flex: 1 1 19%;
+.top-chart {
+  flex: 1 1 5%;
+  min-width: 135px;
+  max-width: 25%;
+}
+
+.song, .album {
   margin: 1% 5px;
+}
+
+.regular-chart {
+  flex: 200px 0;
 }
 
 .MuiAppBar-root{

@@ -33,7 +33,8 @@ const useStyles = makeStyles({
       maxWidth: 345
     },
     media: {
-      height: 140
+      height: 140,
+      'background-size': 'contain'
     },
     modal: {
         display: 'flex',
@@ -59,7 +60,7 @@ function AlbumPreview(props){
     return (
         <Fragment>
         <Card 
-            className="top-album" 
+            className="regular-chart album" 
             onClick={handleOpenAlbum}>
             <CardMedia
                 className={classes.media}

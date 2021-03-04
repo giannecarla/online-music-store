@@ -90,7 +90,7 @@ export default function CartPanel(){
     const handleCheckoutClick = async() => {
 
         let addPurchase = purchasesRef.add({
-            refNo: `A_${moment().format('MMDDYYYYHHMM')}`,
+            refNo: `A_${moment().format('MMDDYYYYHHmmss')}`,
             userId: uid,
             timestamp: moment().format("MM/DD/YYYY HH:MM"),
             albums: cartItems.map((items) => items.album)
@@ -127,6 +127,7 @@ export default function CartPanel(){
                 .then(() => {
                     setAlertMessage('Purchase sucessful!')
                     setIsFeedbackOpen(true);
+                    selectedOnCart = []
                 })
 
     }
@@ -190,7 +191,7 @@ export default function CartPanel(){
             <Button size="large" variant="contained" color="secondary"
                 onClick={handleCheckoutClick}
             >
-                Checkout
+                Checkout Cart
             </Button>
         </div>
         
