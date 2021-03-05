@@ -20,7 +20,6 @@ const useStyles = makeStyles((theme) => ({
       minWidth: 500,
       overflow: "scroll",
       maxHeight: "-webkit-fill-available",
-      margin: '1%'
     },
     media: {
       height: 0,
@@ -55,9 +54,9 @@ export default function PurchaseHistory(){
         <div className="history-table">
             {
                 purchaseHistory && purchaseHistory.map(
-                    (purchase, index) => {
+                    (purchase) => {
                         return (
-                            <Card className={"top-album"}>
+                            <Card className={"album"}>
                                 <CardContent>
                                     <Typography align='left' gutterBottom variant="h5" component="h2">
                                         #{purchase.refNo}
@@ -65,7 +64,7 @@ export default function PurchaseHistory(){
                                     <Typography align='left' gutterBottom variant="body2" component="h2">
                                         {purchase.timestamp}
                                     </Typography>
-                                    <AlbumsBought albums={purchase.albums} key={index}/>
+                                    <AlbumsBought albums={purchase.albums} />
                                 </CardContent>
                             </Card>
                         )
@@ -83,13 +82,13 @@ function AlbumsBought(props){
         <List dense={true}>
             {
                 albums && albums.map(
-                    (album) => {
+                    (album, index) => {
                         return (
-                        <ListItem className={"top-album"}>
+                        <ListItem className={"album"} key={index}>
                             <ListItemAvatar>
                                 <Avatar alt={`album cover`} src={album.image ? album.image : albumPlaceholder} />
                             </ListItemAvatar>
-                            <ListItemText primary={`${album.title} | ${album.price}`} secondary={album.artist} />
+                            <ListItemText primary={`${album.title} @ PHP ${album.price}.00`} secondary={album.artist} />
                         </ListItem>)
                     }
                 )

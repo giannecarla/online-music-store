@@ -97,6 +97,8 @@ h1 {
 .top-album-list, .top-song-list{
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
+
 }
 
 .top-chart {

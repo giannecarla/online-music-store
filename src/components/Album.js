@@ -88,7 +88,7 @@ export default function Album(props){
             />
             <CardContent>
                 <Typography variant="h6" color="textPrimary" component="p">
-                    PHP {album.price}
+                    PHP {album.price}.00
                 </Typography>
             </CardContent>
             <CardActions disableSpacing>
@@ -112,7 +112,7 @@ export default function Album(props){
                 </CardContent>
             </Collapse>
         </Card>
-        <Snackbar open={isFeedbackOpen} autoHideDuration={6000} onclose={handleCloseFeedback}>
+        <Snackbar open={isFeedbackOpen} autoHideDuration={6000} onClose={handleCloseFeedback}>
             <Alert onClose={handleCloseFeedback} severity="success">
                 Successfully added to cart!
             </Alert>

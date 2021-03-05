@@ -197,7 +197,7 @@ export default function CartPanel(){
         
         </Fragment>
         }
-        <Snackbar open={isFeedbackOpen} autoHideDuration={6000} onclose={handleCloseFeedback}>
+        <Snackbar open={isFeedbackOpen} autoHideDuration={6000} onClose={handleCloseFeedback}>
             <Alert onClose={handleCloseFeedback} severity="success">
                 {alertMessage}
             </Alert>

@@ -110,6 +110,7 @@ function CartButton(props){
     <IconButton
       aria-label="show cart"
       onClick={props.onClick}
+      color="inherit"
     >
       <Badge badgeContent={cartItemsCtr} color="secondary">
         <ShoppingCart />
@@ -154,7 +155,7 @@ function MyProfileButton(props){
     >
 
       <MenuItem onClick={() => handleClickHistory()}>Purchase History</MenuItem>
-      <MenuItem onClick={() => signOut}>
+      <MenuItem onClick={() => signOut()}>
         <i className="fas fa-sign-out-alt"/>
           Sign Out
       </MenuItem>

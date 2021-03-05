@@ -89,7 +89,7 @@ function TopAlbum(props){
                     {album.songCount} Songs | {album.year}
                 </Typography>
                 <Typography variant="body2" component="h2">
-                    {album.buyCount} Sold copies
+                    Sold copies ⦁ {album.buyCount}
                 </Typography>
             </CardContent>
         </Card>
@@ -161,7 +161,7 @@ function TopSong(props){
                     {song.artist}
                 </Typography>
                 <Typography variant="body2" component="h2">
-                    {song.streamCount} streams
+                    Stream Count ⦁ {song.streamCount}
                 </Typography>
             </CardContent>
         </Card>
